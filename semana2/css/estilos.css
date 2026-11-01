@@ -1,0 +1,35 @@
+/* Semana 2: colores propios sobre los componentes de Bootstrap. */
+:root {
+  --rojo: #e10600;
+  --naranja: #ff8700;
+  --negro: #15151e;
+}
+body { background: var(--negro); color: #f5f5f5; }
+.navbar.bg-dark { background-color: #101014 !important; border-bottom: 4px solid var(--rojo); padding: 16px 12px; }
+.navbar-brand { font-weight: 900; font-style: italic; letter-spacing: -.8px; }
+.navbar-brand span { color: var(--naranja); }
+.navbar .nav-link { color: #dedee2; }
+.navbar .nav-link:hover, .navbar .nav-link:focus { color: var(--naranja); }
+.dropdown-menu { background: #23232c; border-color: #454550; }
+.dropdown-item { color: #f5f5f5; }
+.dropdown-item:hover, .dropdown-item:focus { background: var(--rojo); color: white; }
+.btn-outline-primary { color: var(--naranja); border-color: var(--naranja); }
+.btn-outline-primary:hover, .btn-outline-primary:focus-visible { color: #15151e; background: var(--naranja); border-color: var(--naranja); }
+.btn-primary, .btn-danger { background: #c80500; border-color: #c80500; color: white; }
+.btn-primary:hover, .btn-primary:focus-visible, .btn-danger:hover { background: #a90400; border-color: #a90400; }
+.container-fluid.bg-warning { background-color: #23232c !important; padding: 20px; }
+.container-fluid.bg-warning a { color: #ffad50; }
+/* Todas las fotos son 16:9: se muestran completas y sin deformación. */
+.container-fluid.bg-warning:has(.carousel) { padding: 0; }
+.carousel-item img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #101014; }
+.carousel-indicators [data-bs-target] { height: 5px; }
+.carousel-indicators .active { background-color: var(--naranja); }
+.carousel-control-prev-icon, .carousel-control-next-icon { background-color: rgba(0,0,0,.55); border-radius: 50%; background-size: 60%; width: 44px; height: 44px; }
+body > .container-fluid.bg-dark { background-color: #101014 !important; border-top: 3px solid var(--rojo); padding: 20px 12px; text-align: center; }
+body > .container-fluid.bg-dark .col-4:has(strong) { width: 100%; }
+body > .container-fluid.bg-dark .col-4:empty { display: none; }
+.modal-content { background: #23232c; color: #f5f5f5; border-top: 4px solid var(--rojo); }
+.modal-header, .modal-footer { border-color: #454550; }
+.modal .btn-close { filter: invert(1) grayscale(1) brightness(2); }
+.form-control:focus { border-color: var(--naranja); box-shadow: 0 0 0 .2rem rgba(255,135,0,.2); }
+.form-check-input:checked { background-color: var(--rojo); border-color: var(--rojo); }
