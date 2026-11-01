@@ -81,9 +81,9 @@ No hace falta instalar dependencias para subir los archivos. No subir el ZIP com
 
 Los 18 productos tienen fotografías guardadas dentro de `imagenes/`; no se descargan desde sitios externos al abrir la carta. Se conservan las proporciones originales y las imágenes se comprimen en JPG. La tabla familiar tiene una fotografía propia. Ocho fotos de la carta fueron reemplazadas por las imágenes seleccionadas y aportadas por la usuaria. Los créditos identifican estas fotos sin atribuirles los autores ni las licencias de las imágenes anteriores.
 
-Consulta [Imágenes y créditos](IMAGENES-Y-CREDITOS.md) para ver autores, fuentes, licencias y resoluciones. También se pueden consultar desde el pie de la web en [Créditos de imágenes](creditos.html). Las fotos son referenciales: las cantidades e ingredientes pueden diferir del catálogo ficticio. Las versiones adaptadas de fotos CC BY-SA mantienen su respectiva licencia.
+## Sitio publicado
 
-El sketch proviene del trabajo previo de Nikkei Roll. Las referencias de otros compañeros se usaron solo como orientación de organización.
+[Visitar Nikkei Roll](https://mandres09.github.io/DesarrolloWeb/Frontend/)
 
 ## Integrante
 
