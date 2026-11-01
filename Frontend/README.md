@@ -4,7 +4,6 @@ Prototipo frontend responsivo de comida de fusión peruano-japonesa. HTML, CSS y
 
 ## Caso y alcance
 
-- Actor: cliente que consulta la carta.
 - Objetivo: seleccionar productos y confirmar un pedido de demostración.
 - Flujo: consultar → buscar/filtrar → agregar → revisar cantidades → confirmar.
 - Requisitos abordados: catálogo, promoción, selección de productos y confirmación simulada de pedido.
