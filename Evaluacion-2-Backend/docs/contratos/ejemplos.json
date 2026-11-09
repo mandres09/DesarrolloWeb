@@ -1,0 +1,726 @@
+{
+  "S01": {
+    "método": "POST",
+    "ruta": "/api/auth/register",
+    "cabeceras": {
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "correo": "cliente@example.test",
+      "clave": "clave-ficticia-de-ejemplo",
+      "nombre": "Cliente Prueba",
+      "run": "11111111-1",
+      "direccion": "Dirección de prueba 123, Santiago",
+      "comuna": "Santiago",
+      "provincia": "Santiago",
+      "region": "Metropolitana",
+      "nacimiento": "1990-01-01",
+      "sexo": "No informar",
+      "telefono": "+56911111111"
+    },
+    "respuesta": {
+      "status": 201,
+      "body": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "message": "Registro creado. Revisa tu correo para verificar la cuenta."
+      }
+    }
+  },
+  "S02": {
+    "método": "POST",
+    "ruta": "/api/auth/login",
+    "cabeceras": {
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "correo": "cliente@example.test",
+      "clave": "clave-ficticia-de-ejemplo"
+    },
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "user": {
+          "sub": "11111111-1111-4111-8111-111111111111",
+          "role": "client",
+          "verified": true
+        },
+        "expires_in": 1800
+      }
+    }
+  },
+  "S03": {
+    "método": "POST",
+    "ruta": "/api/auth/verify",
+    "cabeceras": {
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "token": "CODIGO_FICTICIO"
+    },
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "message": "Correo verificado. Ya puedes comprar."
+      }
+    }
+  },
+  "S04": {
+    "método": "POST",
+    "ruta": "/api/auth/resend",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "message": "Código reenviado."
+      }
+    }
+  },
+  "S05": {
+    "método": "POST",
+    "ruta": "/api/auth/logout",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "message": "Sesión cerrada."
+      }
+    }
+  },
+  "S06": {
+    "método": "GET",
+    "ruta": "/api/products",
+    "cabeceras": {},
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": [
+        {
+          "id": 2,
+          "nombre": "Roll salmón",
+          "descripcion": "Salmón, queso crema y palta. 10 piezas.",
+          "categoria": "Rolls",
+          "precio": 8490,
+          "imagen": "imagenes/roll-salmon.jpg",
+          "disponible": true,
+          "promocion": false
+        }
+      ]
+    },
+    "consulta": {
+      "q": "salmón",
+      "categoria": "Rolls",
+      "limit": 30,
+      "offset": 0
+    }
+  },
+  "S07": {
+    "método": "GET",
+    "ruta": "/api/me",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "correo": "cliente@example.test",
+        "nombre": "Cliente Prueba",
+        "run": "11111111-1",
+        "direccion": "Dirección de prueba 123, Santiago",
+        "comuna": "Santiago",
+        "provincia": "Santiago",
+        "region": "Metropolitana",
+        "nacimiento": "1990-01-01",
+        "sexo": "No informar",
+        "telefono": "+56911111111"
+      }
+    }
+  },
+  "S08": {
+    "método": "GET",
+    "ruta": "/api/users",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111",
+          "email": "cliente@example.test",
+          "role": "client",
+          "verified": 1,
+          "active": 1
+        }
+      ]
+    }
+  },
+  "S09": {
+    "método": "PUT",
+    "ruta": "/api/users/11111111-1111-4111-8111-111111111111",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO",
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "role": "dispatch",
+      "active": true
+    },
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "message": "Usuario actualizado. Sesiones revocadas."
+      }
+    }
+  },
+  "S10": {
+    "método": "GET",
+    "ruta": "/api/profiles",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111",
+          "correo": "cliente@example.test",
+          "nombre": "Cliente Prueba",
+          "run": "11111111-1",
+          "direccion": "Dirección de prueba 123, Santiago",
+          "comuna": "Santiago",
+          "provincia": "Santiago",
+          "region": "Metropolitana",
+          "nacimiento": "1990-01-01",
+          "sexo": "No informar",
+          "telefono": "+56911111111"
+        }
+      ]
+    }
+  },
+  "S11": {
+    "método": "PUT",
+    "ruta": "/api/me",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO",
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "telefono": "+56922222222"
+    },
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "correo": "cliente@example.test",
+        "nombre": "Cliente Prueba",
+        "run": "11111111-1",
+        "direccion": "Dirección de prueba 123, Santiago",
+        "comuna": "Santiago",
+        "provincia": "Santiago",
+        "region": "Metropolitana",
+        "nacimiento": "1990-01-01",
+        "sexo": "No informar",
+        "telefono": "+56922222222"
+      }
+    }
+  },
+  "S12": {
+    "método": "GET",
+    "ruta": "/api/admin/products",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": [
+        {
+          "id": 2,
+          "nombre": "Roll salmón",
+          "descripcion": "Salmón, queso crema y palta. 10 piezas.",
+          "categoria": "Rolls",
+          "precio": 8490,
+          "imagen": "imagenes/roll-salmon.jpg",
+          "disponible": true,
+          "promocion": false,
+          "stock": 50
+        }
+      ]
+    }
+  },
+  "S13": {
+    "método": "POST",
+    "ruta": "/api/admin/products",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO",
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "nombre": "Roll salmón",
+      "descripcion": "Salmón, queso crema y palta. 10 piezas.",
+      "categoria": "Rolls",
+      "precio": 8490,
+      "imagen": "imagenes/roll-salmon.jpg",
+      "disponible": true,
+      "promocion": false,
+      "stock": 50
+    },
+    "respuesta": {
+      "status": 201,
+      "body": {
+        "id": 19
+      }
+    }
+  },
+  "S14": {
+    "método": "PUT",
+    "ruta": "/api/admin/products/11111111-1111-4111-8111-111111111111",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO",
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "nombre": "Roll salmón",
+      "descripcion": "Salmón, queso crema y palta. 10 piezas.",
+      "categoria": "Rolls",
+      "precio": 8490,
+      "imagen": "imagenes/roll-salmon.jpg",
+      "disponible": true,
+      "promocion": false,
+      "stock": 40
+    },
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "id": 2,
+        "message": "Producto actualizado."
+      }
+    }
+  },
+  "S15": {
+    "método": "DELETE",
+    "ruta": "/api/admin/products/11111111-1111-4111-8111-111111111111",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "message": "Producto desactivado. Historial conservado."
+      }
+    }
+  },
+  "S16": {
+    "método": "POST",
+    "ruta": "/api/orders",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO",
+      "Idempotency-Key": "pedido-ficticio-001",
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "items": [
+        {
+          "id": 2,
+          "cantidad": 1
+        }
+      ],
+      "direccion": "Dirección de prueba 123, Santiago"
+    },
+    "respuesta": {
+      "status": 201,
+      "body": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "client_id": "11111111-1111-4111-8111-111111111111",
+        "status": "pendiente_pago",
+        "total": 8490,
+        "items": [
+          {
+            "id": 2,
+            "nombre": "Roll salmón",
+            "precio": 8490,
+            "cantidad": 1,
+            "descuento": 0,
+            "subtotal": 8490
+          }
+        ],
+        "address": "Dirección de prueba 123, Santiago",
+        "created": 1794220000,
+        "paid_at": null,
+        "reason": "",
+        "receipt_sent": 0
+      }
+    }
+  },
+  "S17": {
+    "método": "GET",
+    "ruta": "/api/orders",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": [
+        {
+          "id": "11111111-1111-4111-8111-111111111111",
+          "client_id": "11111111-1111-4111-8111-111111111111",
+          "status": "pendiente_pago",
+          "total": 8490,
+          "items": [
+            {
+              "id": 2,
+              "nombre": "Roll salmón",
+              "precio": 8490,
+              "cantidad": 1,
+              "descuento": 0,
+              "subtotal": 8490
+            }
+          ],
+          "address": "Dirección de prueba 123, Santiago",
+          "created": 1794220000,
+          "paid_at": null,
+          "reason": "",
+          "receipt_sent": 0
+        }
+      ]
+    }
+  },
+  "S18": {
+    "método": "GET",
+    "ruta": "/api/orders/11111111-1111-4111-8111-111111111111",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "client_id": "11111111-1111-4111-8111-111111111111",
+        "status": "pendiente_pago",
+        "total": 8490,
+        "items": [
+          {
+            "id": 2,
+            "nombre": "Roll salmón",
+            "precio": 8490,
+            "cantidad": 1,
+            "descuento": 0,
+            "subtotal": 8490
+          }
+        ],
+        "address": "Dirección de prueba 123, Santiago",
+        "created": 1794220000,
+        "paid_at": null,
+        "reason": "",
+        "receipt_sent": 0
+      }
+    }
+  },
+  "S19": {
+    "método": "POST",
+    "ruta": "/api/orders/11111111-1111-4111-8111-111111111111/cancel",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO",
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "motivo": "Cambio de planes"
+    },
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "client_id": "11111111-1111-4111-8111-111111111111",
+        "status": "cancelado",
+        "total": 8490,
+        "items": [
+          {
+            "id": 2,
+            "nombre": "Roll salmón",
+            "precio": 8490,
+            "cantidad": 1,
+            "descuento": 0,
+            "subtotal": 8490
+          }
+        ],
+        "address": "Dirección de prueba 123, Santiago",
+        "created": 1794220000,
+        "paid_at": null,
+        "reason": "Cambio de planes",
+        "receipt_sent": 0
+      }
+    }
+  },
+  "S20": {
+    "método": "POST",
+    "ruta": "/api/payments",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO",
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "order_id": "11111111-1111-4111-8111-111111111111"
+    },
+    "respuesta": {
+      "status": 201,
+      "body": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "order_id": "11111111-1111-4111-8111-111111111111",
+        "client_id": "11111111-1111-4111-8111-111111111111",
+        "total": 8490,
+        "status": "pendiente"
+      }
+    }
+  },
+  "S21": {
+    "método": "POST",
+    "ruta": "/api/graphql",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO",
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "query": "query($id:ID!){resumenPedido(id:$id){id estado total lineas{nombre descripcionActual cantidad}}}",
+      "variables": {
+        "id": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "data": {
+          "resumenPedido": {
+            "id": "11111111-1111-4111-8111-111111111111",
+            "estado": "pagado",
+            "total": 8490,
+            "lineas": [
+              {
+                "nombre": "Roll salmón",
+                "descripcionActual": "Salmón, queso crema y palta. 10 piezas.",
+                "cantidad": 1
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "S22": {
+    "método": "PUT",
+    "ruta": "/api/orders/11111111-1111-4111-8111-111111111111/status",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO",
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "status": "preparando"
+    },
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "client_id": "11111111-1111-4111-8111-111111111111",
+        "status": "preparando",
+        "total": 8490,
+        "items": [
+          {
+            "id": 2,
+            "nombre": "Roll salmón",
+            "precio": 8490,
+            "cantidad": 1,
+            "descuento": 0,
+            "subtotal": 8490
+          }
+        ],
+        "address": "Dirección de prueba 123, Santiago",
+        "created": 1794220000,
+        "paid_at": 1794220300,
+        "reason": "",
+        "receipt_sent": 0
+      }
+    }
+  },
+  "S23": {
+    "método": "POST",
+    "ruta": "/api/orders/11111111-1111-4111-8111-111111111111/receipt-email",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "message": "Comprobante enviado al buzón de prueba."
+      }
+    }
+  },
+  "S24": {
+    "método": "PUT",
+    "ruta": "/api/profiles/11111111-1111-4111-8111-111111111111",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO",
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "comuna": "Santiago"
+    },
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "correo": "cliente@example.test",
+        "nombre": "Cliente Prueba",
+        "run": "11111111-1",
+        "direccion": "Dirección de prueba 123, Santiago",
+        "comuna": "Santiago",
+        "provincia": "Santiago",
+        "region": "Metropolitana",
+        "nacimiento": "1990-01-01",
+        "sexo": "No informar",
+        "telefono": "+56911111111"
+      }
+    }
+  },
+  "S25": {
+    "método": "POST",
+    "ruta": "/api/admin/clients",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO",
+      "Content-Type": "application/json"
+    },
+    "cuerpo": {
+      "correo": "cliente@example.test",
+      "clave": "clave-ficticia-de-ejemplo",
+      "nombre": "Cliente Prueba",
+      "run": "11111111-1",
+      "direccion": "Dirección de prueba 123, Santiago",
+      "comuna": "Santiago",
+      "provincia": "Santiago",
+      "region": "Metropolitana",
+      "nacimiento": "1990-01-01",
+      "sexo": "No informar",
+      "telefono": "+56911111111"
+    },
+    "respuesta": {
+      "status": 201,
+      "body": {
+        "id": "11111111-1111-4111-8111-111111111111",
+        "message": "Registro creado. Revisa tu correo para verificar la cuenta."
+      }
+    }
+  },
+  "S26": {
+    "método": "GET",
+    "ruta": "/api/orders/11111111-1111-4111-8111-111111111111/receipt",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "numero": "DEMO-11111111-1111-4111-8111-111111111111",
+        "tipo": "Comprobante académico no tributario",
+        "total": 8490,
+        "items": [
+          {
+            "id": 2,
+            "nombre": "Roll salmón",
+            "precio": 8490,
+            "cantidad": 1,
+            "descuento": 0,
+            "subtotal": 8490
+          }
+        ],
+        "moneda": "CLP"
+      }
+    }
+  },
+  "S27": {
+    "método": "GET",
+    "ruta": "/api/orders/11111111-1111-4111-8111-111111111111/dispatch | /api/orders/11111111-1111-4111-8111-111111111111/dispatch-print",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "orden": "11111111-1111-4111-8111-111111111111",
+        "direccion": "Dirección de prueba 123, Santiago",
+        "items": [
+          {
+            "id": 2,
+            "nombre": "Roll salmón",
+            "precio": 8490,
+            "cantidad": 1,
+            "descuento": 0,
+            "subtotal": 8490
+          }
+        ],
+        "created": 1794220000
+      }
+    },
+    "alternativa_html": "<main><h1>Nikkei Roll · Orden de despacho</h1></main>"
+  },
+  "S28": {
+    "método": "POST",
+    "ruta": "/api/admin/reconcile",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA",
+      "X-CSRF-Token": "CSRF_FICTICIO"
+    },
+    "cuerpo": null,
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "recuperados": 1
+      }
+    }
+  },
+  "S29": {
+    "método": "GET",
+    "ruta": "/api/reports/sales?desde=0&hasta=4102444800",
+    "cabeceras": {
+      "Cookie": "session=COOKIE_FICTICIA"
+    },
+    "respuesta": {
+      "status": 200,
+      "body": {
+        "ventas": 1,
+        "total": 8490,
+        "moneda": "CLP",
+        "desde": 0,
+        "hasta": 4102444800
+      }
+    }
+  }
+}

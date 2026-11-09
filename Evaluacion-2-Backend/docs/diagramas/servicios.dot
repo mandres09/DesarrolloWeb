@@ -1,0 +1,23 @@
+digraph Servicios {
+ graph [rankdir=TB, bgcolor="white", pad=".12", nodesep=".28", ranksep=".4"]
+ node [shape=record, fontname=Arial, fontsize=10, style=filled, fillcolor="#faf8f2", color="#555555"]
+ edge [style=dashed, arrowhead=open, arrowsize=.6, color="#555555"]
+ A [label="{«service» Auth|S01–S05, S08–S09, S25\l}"]
+ B [label="{«service» Inventory|S06, S12–S15\l}"]
+ C [label="{«service» Clients|S07, S10–S11, S24\l}"]
+ D [label="{«service» Orders|S16–S19, S22–S23\lS26–S29\l}"]
+ E [label="{«service» Payments|S20\l}"]
+ F [label="{«service» GraphQL|S21\l}"]
+ Cuenta [label="{CuentaDTO|id · rol · verificada\l}"]
+ Producto [label="{ProductoDTO|id · nombre · precio · disponible\l}"]
+ Cliente [label="{PerfilDTO|id · nombre · contacto\l}"]
+ Pedido [label="{PedidoDTO|id · estado · total · líneas\l}"]
+ Pago [label="{PagoDTO|id · pedido · monto · estado\l}"]
+ Resumen [label="{ResumenDTO|pedido · descripción actual\l}"]
+ A -> Cuenta
+ B -> Producto
+ C -> Cliente
+ D -> Pedido
+ E -> Pago
+ F -> Resumen
+}

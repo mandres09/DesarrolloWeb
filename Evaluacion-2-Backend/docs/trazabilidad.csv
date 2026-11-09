@@ -1,0 +1,20 @@
+Requisito,Pantalla,Servicios,Prueba,Resultado,Evidencia
+RF01 Carta y pedido,Inicio Carta Carrito,S06 S16 S17 S18,test_pedido_idempotente_precios_y_stock | test_promociones_y_filtros,Aprobado,evidencias/pruebas.xml
+RF02 Pago antes de preparación,Mi cuenta y despacho,S20 S22,test_pago_firmado_duplicados_despacho_y_comprobante,Aprobado,evidencias/pruebas.xml
+RF03 Anulación con motivo,Gestión de pedido,S19 S28,test_anulacion_reembolso_y_recuperacion_stock,Aprobado,evidencias/pruebas.xml
+RF04 Venta a cliente registrado,Mi cuenta y caja,S16 S20 S23,test_cajero_despacho_y_dueno,Aprobado,evidencias/pruebas.xml
+RF05 Registro y ofertas,Mi cuenta y Promociones,S01 S03 S06,test_registro_validacion_correo_y_sesion | test_promociones_y_filtros,Aprobado,evidencias/pruebas.xml
+RF06 Alta web y por administrador,Cuenta y administración,S01 S25,test_alta_de_cliente_por_administrador,Aprobado,evidencias/pruebas.xml
+RF07 Administrar disponibilidad,Maestro de productos,S12 S13 S14 S15,test_admin_catalogo_roles_reporte | test_stock_concurrente_sin_sobreventa,Aprobado,evidencias/pruebas.xml
+RF08 Comprobante y correo,Caja y Mi cuenta,S23 S26,test_pago_firmado_duplicados_despacho_y_comprobante,Aprobado,evidencias/pruebas.xml
+RF09 Reporte por período,Dueño,S29,test_cajero_despacho_y_dueno,Aprobado,evidencias/pruebas.xml
+RF10 Maestros,Administración,S08 S09 S10 S11 S12 S13 S14 S15 S24 S25,test_admin_catalogo_roles_reporte | test_admin_clientes_y_proteccion_campo_direccion,Aprobado,evidencias/pruebas.xml
+RF11 Verificación por correo,Mi cuenta,S03 S04,test_registro_validacion_correo_y_sesion,Aprobado,evidencias/pruebas.xml
+RF12 Acceso por perfil,Mi cuenta y administración,S02 S05 S09 S21,test_csrf_y_sesion_revocada | test_roles_propiedad_y_cabeceras_falsas,Aprobado,evidencias/pruebas.xml
+RF13 Orden de despacho,Despacho,S17 S22 S27,test_cajero_despacho_y_dueno | test_pago_firmado_duplicados_despacho_y_comprobante,Aprobado,evidencias/pruebas.xml
+R14 Radio de 3 km,Carrito,S16,test_radio_delivery,Aprobado,evidencias/pruebas.xml
+A01 GraphQL privada,Mi cuenta,S21,test_graphql_agregacion_limites_y_campos | test_red_privada_y_acl_secretos,Aprobado,evidencias/pruebas.xml
+A02 Reinicio y persistencia,Historial de pedido,S18,scripts/verificar.py,Aprobado,evidencias/persistencia.json
+A03 Carga local,Carta y reporte,S06 S29,scripts/carga.py,Aprobado,evidencias/carga.json
+A04 Respuesta parcial ante caída,Mi cuenta,S21,scripts/verificar.py,Aprobado,evidencias/resiliencia.json
+A05 Recorrido Chromium,Cuenta Carta Carrito,S01 S02 S03 S06 S16 S20 S21,scripts/prueba_navegador.cjs,Aprobado,evidencias/navegador.json

@@ -1,0 +1,30 @@
+ID,Pantalla y acción,Método,Ruta,Servicio,Rol,Entrada,Salida y validación
+S01,Cuenta · Registro,POST,/api/auth/register,auth,Visitante,Perfil y contraseña,201 cuenta pendiente · 409 duplicado · 422 campos
+S02,Cuenta · Inicio de sesión,POST,/api/auth/login,auth,Visitante,Correo y contraseña,200 cookie y rol · 401 credenciales
+S03,Cuenta · Verificar correo,POST,/api/auth/verify,auth,Visitante o sesión,Código temporal,200 verificación · 400 código inválido
+S04,Cuenta · Reenviar código,POST,/api/auth/resend,auth,Cuenta activa,Cookie y CSRF,200 mensaje al buzón
+S05,Cuenta · Cerrar sesión,POST,/api/auth/logout,auth,Cuenta activa,Cookie y CSRF,200 revocación
+S06,Carta · Consulta y ofertas,GET,/api/products,inventory,Visitante,limit offset q categoria promocion,200 catálogo público · 422 filtros
+S07,Perfil · Consultar,GET,/api/me,clients,Cliente propietario,Cookie,200 perfil restringido · 404 sin perfil
+S08,Administración · Usuarios,GET,/api/users,auth,Administrador,Cookie,200 usuarios sin credenciales
+S09,Administración · Cambiar rol o vigencia,PUT,/api/users/{id},auth,Administrador,role y active,200 y revocación · 409 propio
+S10,Administración · Maestro de clientes,GET,/api/profiles,clients,Administrador,Cookie,200 perfiles restringidos
+S11,Perfil · Editar contacto,PUT,/api/me,clients,Cliente verificado,Campos de contacto permitidos,200 perfil · 422 campo no admitido
+S12,Administración · Maestro de productos,GET,/api/admin/products,inventory,Administrador o dueño,Cookie,200 catálogo con stock
+S13,Administración · Alta de producto,POST,/api/admin/products,inventory,Administrador o dueño,Producto y stock,201 id · 422 cuerpo
+S14,Administración · Editar producto,PUT,/api/admin/products/{id},inventory,Administrador o dueño,Producto y stock,200 id · 404 producto
+S15,Administración · Desactivar producto,DELETE,/api/admin/products/{id},inventory,Administrador o dueño,Identificador entero,200 baja lógica · 404 producto
+S16,Carrito · Crear pedido,POST,/api/orders,orders,Cliente verificado,Ítems y dirección más Idempotency-Key,201 total CLP · 409 stock o conflicto · 422 cobertura
+S17,Cuenta o gestión · Listar pedidos,GET,/api/orders,orders,Propietario o personal,Cookie más limit offset,200 listado acotado al rol
+S18,Cuenta o gestión · Detalle,GET,/api/orders/{id},orders,Propietario o personal,UUID,200 detalle · 403 ajeno · 404 inexistente
+S19,Cuenta o gestión · Anular,POST,/api/orders/{id}/cancel,orders,Propietario o administrador,motivo,200 cancelado · 409 preparación iniciada
+S20,Cuenta · Iniciar pago,POST,/api/payments,payments,Cliente propietario,order_id,201 checkout · 403 ajeno · 409 estado
+S21,Cuenta · Consultar resumen,POST,/api/graphql,graphql,Propietario o personal,query y variables,200 datos o errores de resolver · 400 consulta inválida
+S22,Despacho · Cambiar estado,PUT,/api/orders/{id}/status,orders,Administrador o caja o despacho,status,200 transición · 409 estado incompatible
+S23,Caja · Emitir comprobante,POST,/api/orders/{id}/receipt-email,orders,Administrador o caja,UUID de pedido,200 comprobante en buzón · 409 impago
+S24,Administración · Editar cliente,PUT,/api/profiles/{id},clients,Administrador,Campos de contacto,200 perfil · 404 inexistente
+S25,Mostrador · Registrar cliente,POST,/api/admin/clients,auth,Administrador,Perfil y contraseña inicial,201 cuenta pendiente · 409 duplicado
+S26,Cuenta · Consultar comprobante,GET,/api/orders/{id}/receipt,orders,Propietario o personal,UUID de pedido,200 comprobante emitido · 409 pendiente
+S27,Despacho · Consultar o imprimir,GET,/api/orders/{id}/dispatch | /api/orders/{id}/dispatch-print,orders,Administrador o caja o despacho,UUID de pedido,200 JSON o HTML · 409 impago
+S28,Administración · Conciliar,POST,/api/admin/reconcile,orders,Administrador,Sin cuerpo,200 cantidad recuperada
+S29,Dueño · Reporte por período,GET,/api/reports/sales,orders,Administrador o dueño,desde y hasta en Unix UTC,200 ventas y total CLP · 422 período inválido

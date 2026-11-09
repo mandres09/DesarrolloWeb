@@ -1,0 +1,7 @@
+{
+  "dependencia": "inventory",
+  "respuesta_parcial_http": 200,
+  "estado_historico": "entregado",
+  "aviso_visible": true,
+  "descripcion_recuperada": true
+}

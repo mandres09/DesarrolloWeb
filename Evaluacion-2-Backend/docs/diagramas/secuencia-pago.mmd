@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant C as Cliente
+    participant G as API Gateway
+    participant P as Payments
+    participant O as Orders
+    participant S as Proveedor local
+    C->>G: POST /api/payments con order_id
+    G->>P: Sesión verificada por el servicio
+    P->>O: Consultar monto, propietario y estado
+    O-->>P: Monto oficial en CLP
+    P->>S: Crear checkout idempotente
+    P-->>C: Identificador por el Gateway
+    Note over S: El operador aprueba el pago de prueba
+    S->>P: Aviso firmado con event_id
+    P->>O: Confirmar pago del pedido
+    O-->>P: Pagado o confirmación previa
+    P-->>S: Evento procesado

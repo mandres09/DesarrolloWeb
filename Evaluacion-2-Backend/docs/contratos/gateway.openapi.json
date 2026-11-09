@@ -1,0 +1,1963 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Nikkei Roll API Gateway",
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:8443"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "cookieSession": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "session"
+      }
+    }
+  },
+  "paths": {
+    "/api/auth/register": {
+      "post": {
+        "operationId": "S01",
+        "summary": "Cuenta · Registro",
+        "description": "201 cuenta pendiente · 409 duplicado · 422 campos",
+        "security": [],
+        "responses": {
+          "201": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "message": "Registro creado. Revisa tu correo para verificar la cuenta."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "correo": {
+                    "type": "string"
+                  },
+                  "clave": {
+                    "type": "string"
+                  },
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "run": {
+                    "type": "string"
+                  },
+                  "direccion": {
+                    "type": "string"
+                  },
+                  "comuna": {
+                    "type": "string"
+                  },
+                  "provincia": {
+                    "type": "string"
+                  },
+                  "region": {
+                    "type": "string"
+                  },
+                  "nacimiento": {
+                    "type": "string"
+                  },
+                  "sexo": {
+                    "type": "string"
+                  },
+                  "telefono": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "correo": "cliente@example.test",
+                "clave": "clave-ficticia-de-ejemplo",
+                "nombre": "Cliente Prueba",
+                "run": "11111111-1",
+                "direccion": "Dirección de prueba 123, Santiago",
+                "comuna": "Santiago",
+                "provincia": "Santiago",
+                "region": "Metropolitana",
+                "nacimiento": "1990-01-01",
+                "sexo": "No informar",
+                "telefono": "+56911111111"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/login": {
+      "post": {
+        "operationId": "S02",
+        "summary": "Cuenta · Inicio de sesión",
+        "description": "200 cookie y rol · 401 credenciales",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "user": {
+                    "sub": "11111111-1111-4111-8111-111111111111",
+                    "role": "client",
+                    "verified": true
+                  },
+                  "expires_in": 1800
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "correo": {
+                    "type": "string"
+                  },
+                  "clave": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "correo": "cliente@example.test",
+                "clave": "clave-ficticia-de-ejemplo"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/verify": {
+      "post": {
+        "operationId": "S03",
+        "summary": "Cuenta · Verificar correo",
+        "description": "200 verificación · 400 código inválido",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Correo verificado. Ya puedes comprar."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "token": "CODIGO_FICTICIO"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/auth/resend": {
+      "post": {
+        "operationId": "S04",
+        "summary": "Cuenta · Reenviar código",
+        "description": "200 mensaje al buzón",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Código reenviado."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "operationId": "S05",
+        "summary": "Cuenta · Cerrar sesión",
+        "description": "200 revocación",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Sesión cerrada."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/products": {
+      "get": {
+        "operationId": "S06",
+        "summary": "Carta · Consulta y ofertas",
+        "description": "200 catálogo público · 422 filtros",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 2,
+                    "nombre": "Roll salmón",
+                    "descripcion": "Salmón, queso crema y palta. 10 piezas.",
+                    "categoria": "Rolls",
+                    "precio": 8490,
+                    "imagen": "imagenes/roll-salmon.jpg",
+                    "disponible": true,
+                    "promocion": false
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categoria",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "promocion",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ]
+      }
+    },
+    "/api/me": {
+      "get": {
+        "operationId": "S07",
+        "summary": "Perfil · Consultar",
+        "description": "200 perfil restringido · 404 sin perfil",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "correo": "cliente@example.test",
+                  "nombre": "Cliente Prueba",
+                  "run": "11111111-1",
+                  "direccion": "Dirección de prueba 123, Santiago",
+                  "comuna": "Santiago",
+                  "provincia": "Santiago",
+                  "region": "Metropolitana",
+                  "nacimiento": "1990-01-01",
+                  "sexo": "No informar",
+                  "telefono": "+56911111111"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "S11",
+        "summary": "Perfil · Editar contacto",
+        "description": "200 perfil · 422 campo no admitido",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "correo": "cliente@example.test",
+                  "nombre": "Cliente Prueba",
+                  "run": "11111111-1",
+                  "direccion": "Dirección de prueba 123, Santiago",
+                  "comuna": "Santiago",
+                  "provincia": "Santiago",
+                  "region": "Metropolitana",
+                  "nacimiento": "1990-01-01",
+                  "sexo": "No informar",
+                  "telefono": "+56922222222"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "telefono": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "telefono": "+56922222222"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users": {
+      "get": {
+        "operationId": "S08",
+        "summary": "Administración · Usuarios",
+        "description": "200 usuarios sin credenciales",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": "11111111-1111-4111-8111-111111111111",
+                    "email": "cliente@example.test",
+                    "role": "client",
+                    "verified": 1,
+                    "active": 1
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/{id}": {
+      "put": {
+        "operationId": "S09",
+        "summary": "Administración · Cambiar rol o vigencia",
+        "description": "200 y revocación · 409 propio",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Usuario actualizado. Sesiones revocadas."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "role": {
+                    "type": "string"
+                  },
+                  "active": {
+                    "type": "boolean"
+                  }
+                }
+              },
+              "example": {
+                "role": "dispatch",
+                "active": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/profiles": {
+      "get": {
+        "operationId": "S10",
+        "summary": "Administración · Maestro de clientes",
+        "description": "200 perfiles restringidos",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": "11111111-1111-4111-8111-111111111111",
+                    "correo": "cliente@example.test",
+                    "nombre": "Cliente Prueba",
+                    "run": "11111111-1",
+                    "direccion": "Dirección de prueba 123, Santiago",
+                    "comuna": "Santiago",
+                    "provincia": "Santiago",
+                    "region": "Metropolitana",
+                    "nacimiento": "1990-01-01",
+                    "sexo": "No informar",
+                    "telefono": "+56911111111"
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/products": {
+      "get": {
+        "operationId": "S12",
+        "summary": "Administración · Maestro de productos",
+        "description": "200 catálogo con stock",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": 2,
+                    "nombre": "Roll salmón",
+                    "descripcion": "Salmón, queso crema y palta. 10 piezas.",
+                    "categoria": "Rolls",
+                    "precio": 8490,
+                    "imagen": "imagenes/roll-salmon.jpg",
+                    "disponible": true,
+                    "promocion": false,
+                    "stock": 50
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "S13",
+        "summary": "Administración · Alta de producto",
+        "description": "201 id · 422 cuerpo",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": 19
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "descripcion": {
+                    "type": "string"
+                  },
+                  "categoria": {
+                    "type": "string"
+                  },
+                  "precio": {
+                    "type": "integer"
+                  },
+                  "imagen": {
+                    "type": "string"
+                  },
+                  "disponible": {
+                    "type": "boolean"
+                  },
+                  "promocion": {
+                    "type": "boolean"
+                  },
+                  "stock": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "nombre": "Roll salmón",
+                "descripcion": "Salmón, queso crema y palta. 10 piezas.",
+                "categoria": "Rolls",
+                "precio": 8490,
+                "imagen": "imagenes/roll-salmon.jpg",
+                "disponible": true,
+                "promocion": false,
+                "stock": 50
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/products/{id}": {
+      "put": {
+        "operationId": "S14",
+        "summary": "Administración · Editar producto",
+        "description": "200 id · 404 producto",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": 2,
+                  "message": "Producto actualizado."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "descripcion": {
+                    "type": "string"
+                  },
+                  "categoria": {
+                    "type": "string"
+                  },
+                  "precio": {
+                    "type": "integer"
+                  },
+                  "imagen": {
+                    "type": "string"
+                  },
+                  "disponible": {
+                    "type": "boolean"
+                  },
+                  "promocion": {
+                    "type": "boolean"
+                  },
+                  "stock": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "example": {
+                "nombre": "Roll salmón",
+                "descripcion": "Salmón, queso crema y palta. 10 piezas.",
+                "categoria": "Rolls",
+                "precio": 8490,
+                "imagen": "imagenes/roll-salmon.jpg",
+                "disponible": true,
+                "promocion": false,
+                "stock": 40
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "S15",
+        "summary": "Administración · Desactivar producto",
+        "description": "200 baja lógica · 404 producto",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Producto desactivado. Historial conservado."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/orders": {
+      "post": {
+        "operationId": "S16",
+        "summary": "Carrito · Crear pedido",
+        "description": "201 total CLP · 409 stock o conflicto · 422 cobertura",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "client_id": "11111111-1111-4111-8111-111111111111",
+                  "status": "pendiente_pago",
+                  "total": 8490,
+                  "items": [
+                    {
+                      "id": 2,
+                      "nombre": "Roll salmón",
+                      "precio": 8490,
+                      "cantidad": 1,
+                      "descuento": 0,
+                      "subtotal": 8490
+                    }
+                  ],
+                  "address": "Dirección de prueba 123, Santiago",
+                  "created": 1794220000,
+                  "paid_at": null,
+                  "reason": "",
+                  "receipt_sent": 0
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "items": {
+                    "type": "array"
+                  },
+                  "direccion": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "items": [
+                  {
+                    "id": 2,
+                    "cantidad": 1
+                  }
+                ],
+                "direccion": "Dirección de prueba 123, Santiago"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "S17",
+        "summary": "Cuenta o gestión · Listar pedidos",
+        "description": "200 listado acotado al rol",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id": "11111111-1111-4111-8111-111111111111",
+                    "client_id": "11111111-1111-4111-8111-111111111111",
+                    "status": "pendiente_pago",
+                    "total": 8490,
+                    "items": [
+                      {
+                        "id": 2,
+                        "nombre": "Roll salmón",
+                        "precio": 8490,
+                        "cantidad": 1,
+                        "descuento": 0,
+                        "subtotal": 8490
+                      }
+                    ],
+                    "address": "Dirección de prueba 123, Santiago",
+                    "created": 1794220000,
+                    "paid_at": null,
+                    "reason": "",
+                    "receipt_sent": 0
+                  }
+                ]
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ]
+      }
+    },
+    "/api/orders/{id}": {
+      "get": {
+        "operationId": "S18",
+        "summary": "Cuenta o gestión · Detalle",
+        "description": "200 detalle · 403 ajeno · 404 inexistente",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "client_id": "11111111-1111-4111-8111-111111111111",
+                  "status": "pendiente_pago",
+                  "total": 8490,
+                  "items": [
+                    {
+                      "id": 2,
+                      "nombre": "Roll salmón",
+                      "precio": 8490,
+                      "cantidad": 1,
+                      "descuento": 0,
+                      "subtotal": 8490
+                    }
+                  ],
+                  "address": "Dirección de prueba 123, Santiago",
+                  "created": 1794220000,
+                  "paid_at": null,
+                  "reason": "",
+                  "receipt_sent": 0
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/orders/{id}/cancel": {
+      "post": {
+        "operationId": "S19",
+        "summary": "Cuenta o gestión · Anular",
+        "description": "200 cancelado · 409 preparación iniciada",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "client_id": "11111111-1111-4111-8111-111111111111",
+                  "status": "cancelado",
+                  "total": 8490,
+                  "items": [
+                    {
+                      "id": 2,
+                      "nombre": "Roll salmón",
+                      "precio": 8490,
+                      "cantidad": 1,
+                      "descuento": 0,
+                      "subtotal": 8490
+                    }
+                  ],
+                  "address": "Dirección de prueba 123, Santiago",
+                  "created": 1794220000,
+                  "paid_at": null,
+                  "reason": "Cambio de planes",
+                  "receipt_sent": 0
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "motivo": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "motivo": "Cambio de planes"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/payments": {
+      "post": {
+        "operationId": "S20",
+        "summary": "Cuenta · Iniciar pago",
+        "description": "201 checkout · 403 ajeno · 409 estado",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "order_id": "11111111-1111-4111-8111-111111111111",
+                  "client_id": "11111111-1111-4111-8111-111111111111",
+                  "total": 8490,
+                  "status": "pendiente"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "order_id": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "order_id": "11111111-1111-4111-8111-111111111111"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/graphql": {
+      "post": {
+        "operationId": "S21",
+        "summary": "Cuenta · Consultar resumen",
+        "description": "200 datos o errores de resolver · 400 consulta inválida",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "data": {
+                    "resumenPedido": {
+                      "id": "11111111-1111-4111-8111-111111111111",
+                      "estado": "pagado",
+                      "total": 8490,
+                      "lineas": [
+                        {
+                          "nombre": "Roll salmón",
+                          "descripcionActual": "Salmón, queso crema y palta. 10 piezas.",
+                          "cantidad": 1
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "query": {
+                    "type": "string"
+                  },
+                  "variables": {
+                    "type": "object"
+                  }
+                }
+              },
+              "example": {
+                "query": "query($id:ID!){resumenPedido(id:$id){id estado total lineas{nombre descripcionActual cantidad}}}",
+                "variables": {
+                  "id": "11111111-1111-4111-8111-111111111111"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/status": {
+      "put": {
+        "operationId": "S22",
+        "summary": "Despacho · Cambiar estado",
+        "description": "200 transición · 409 estado incompatible",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "client_id": "11111111-1111-4111-8111-111111111111",
+                  "status": "preparando",
+                  "total": 8490,
+                  "items": [
+                    {
+                      "id": 2,
+                      "nombre": "Roll salmón",
+                      "precio": 8490,
+                      "cantidad": 1,
+                      "descuento": 0,
+                      "subtotal": 8490
+                    }
+                  ],
+                  "address": "Dirección de prueba 123, Santiago",
+                  "created": 1794220000,
+                  "paid_at": 1794220300,
+                  "reason": "",
+                  "receipt_sent": 0
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "status": "preparando"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/receipt-email": {
+      "post": {
+        "operationId": "S23",
+        "summary": "Caja · Emitir comprobante",
+        "description": "200 comprobante en buzón · 409 impago",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "message": "Comprobante enviado al buzón de prueba."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/profiles/{id}": {
+      "put": {
+        "operationId": "S24",
+        "summary": "Administración · Editar cliente",
+        "description": "200 perfil · 404 inexistente",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "correo": "cliente@example.test",
+                  "nombre": "Cliente Prueba",
+                  "run": "11111111-1",
+                  "direccion": "Dirección de prueba 123, Santiago",
+                  "comuna": "Santiago",
+                  "provincia": "Santiago",
+                  "region": "Metropolitana",
+                  "nacimiento": "1990-01-01",
+                  "sexo": "No informar",
+                  "telefono": "+56911111111"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "comuna": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "comuna": "Santiago"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/admin/clients": {
+      "post": {
+        "operationId": "S25",
+        "summary": "Mostrador · Registrar cliente",
+        "description": "201 cuenta pendiente · 409 duplicado",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "id": "11111111-1111-4111-8111-111111111111",
+                  "message": "Registro creado. Revisa tu correo para verificar la cuenta."
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "correo": {
+                    "type": "string"
+                  },
+                  "clave": {
+                    "type": "string"
+                  },
+                  "nombre": {
+                    "type": "string"
+                  },
+                  "run": {
+                    "type": "string"
+                  },
+                  "direccion": {
+                    "type": "string"
+                  },
+                  "comuna": {
+                    "type": "string"
+                  },
+                  "provincia": {
+                    "type": "string"
+                  },
+                  "region": {
+                    "type": "string"
+                  },
+                  "nacimiento": {
+                    "type": "string"
+                  },
+                  "sexo": {
+                    "type": "string"
+                  },
+                  "telefono": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "correo": "cliente@example.test",
+                "clave": "clave-ficticia-de-ejemplo",
+                "nombre": "Cliente Prueba",
+                "run": "11111111-1",
+                "direccion": "Dirección de prueba 123, Santiago",
+                "comuna": "Santiago",
+                "provincia": "Santiago",
+                "region": "Metropolitana",
+                "nacimiento": "1990-01-01",
+                "sexo": "No informar",
+                "telefono": "+56911111111"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/orders/{id}/receipt": {
+      "get": {
+        "operationId": "S26",
+        "summary": "Cuenta · Consultar comprobante",
+        "description": "200 comprobante emitido · 409 pendiente",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "numero": "DEMO-11111111-1111-4111-8111-111111111111",
+                  "tipo": "Comprobante académico no tributario",
+                  "total": 8490,
+                  "items": [
+                    {
+                      "id": 2,
+                      "nombre": "Roll salmón",
+                      "precio": 8490,
+                      "cantidad": 1,
+                      "descuento": 0,
+                      "subtotal": 8490
+                    }
+                  ],
+                  "moneda": "CLP"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/orders/{id}/dispatch": {
+      "get": {
+        "operationId": "S27",
+        "summary": "Despacho · Consultar o imprimir",
+        "description": "200 JSON o HTML · 409 impago",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "orden": "11111111-1111-4111-8111-111111111111",
+                  "direccion": "Dirección de prueba 123, Santiago",
+                  "items": [
+                    {
+                      "id": 2,
+                      "nombre": "Roll salmón",
+                      "precio": 8490,
+                      "cantidad": 1,
+                      "descuento": 0,
+                      "subtotal": 8490
+                    }
+                  ],
+                  "created": 1794220000
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/orders/{id}/dispatch-print": {
+      "get": {
+        "operationId": "S27Print",
+        "summary": "Despacho · Consultar o imprimir",
+        "description": "200 JSON o HTML · 409 impago",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "text/html": {
+                "example": "<main><h1>Nikkei Roll · Orden de despacho</h1></main>"
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/admin/reconcile": {
+      "post": {
+        "operationId": "S28",
+        "summary": "Administración · Conciliar",
+        "description": "200 cantidad recuperada",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Operación exitosa",
+            "content": {
+              "application/json": {
+                "example": {
+                  "recuperados": 1
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error HTTP",
+            "content": {
+              "application/json": {
+                "example": {
+                  "detail": "Operación rechazada."
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "X-CSRF-Token",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/reports/sales": {
+      "get": {
+        "operationId": "S29",
+        "summary": "Consultar ventas por período",
+        "security": [
+          {
+            "cookieSession": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "desde",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "name": "hasta",
+            "in": "query",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Totales del período",
+            "content": {
+              "application/json": {
+                "example": {
+                  "ventas": 1,
+                  "total": 8490,
+                  "moneda": "CLP",
+                  "desde": 0,
+                  "hasta": 4102444800
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

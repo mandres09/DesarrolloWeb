@@ -1,0 +1,12 @@
+digraph Secuencia {
+ graph [rankdir=TB, bgcolor="white", pad=".12", ranksep=".42"]
+ node [shape=box, style="rounded,filled", fillcolor="#faf8f2", fontname=Arial, fontsize=11, color="#555555"]
+ edge [arrowsize=.65, color="#555555"]
+ A [label="1 · Cliente → Gateway → Orders\nPOST /orders con sesión y clave de idempotencia"]
+ B [label="2 · Orders → Geocodificador e Inventory\nValida radio, reserva unidades y calcula total"]
+ C [label="3 · Cliente → Payments → Proveedor\nCrea checkout con el total de Orders"]
+ D [label="4 · Proveedor → Payments → Orders\nAviso firmado y cambio a pagado"]
+ E [label="5 · Caja y despacho → Orders\nEmite comprobante y prepara la orden"]
+ F [label="6 · Mi cuenta → Gateway → GraphQL\nCombina estado y detalle con Inventory"]
+ A -> B -> C -> D -> E -> F
+}

@@ -1,0 +1,33 @@
+digraph Componentes {
+ graph [rankdir=TB, bgcolor="white", pad=".12", nodesep=".24", ranksep=".48"]
+ node [shape=box, style="rounded,filled", fillcolor="#faf8f2", fontname=Arial, fontsize=11, color="#555555"]
+ edge [fontname=Arial, fontsize=9, color="#555555", arrowsize=.6]
+ Navegador -> Gateway [label="HTTPS 8443"]
+ subgraph cluster_privado {
+ label="Servicios locales con identidad técnica"
+ style=rounded
+ color="#b8b8b8"
+ fontname=Arial
+ Auth [label="Auth Service"]
+ Vault [label="Gestor de secretos"]
+ Gql [label="GraphQL Gateway"]
+ Provider [label="Proveedor de prueba"]
+ {rank=same; Vault Auth Clients Gql}
+ {rank=same; Inventory Orders Payments Provider}
+ Gql -> Inventory
+ Gql -> Orders
+ Orders -> Inventory
+ Orders -> Payments [label="Reembolso"]
+ Payments -> Orders [label="Pago"]
+ Payments -> Provider
+ Auth -> Clients
+ Auth -> Provider
+ Auth -> Vault
+ }
+ Gateway -> Auth
+ Gateway -> Clients
+ Gateway -> Inventory
+ Gateway -> Orders
+ Gateway -> Payments
+ Gateway -> Gql
+}

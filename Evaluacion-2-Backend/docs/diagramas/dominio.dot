@@ -1,0 +1,18 @@
+digraph Dominio {
+ graph [rankdir=TB, bgcolor="white", pad=".15", nodesep=".30", ranksep=".60"]
+ node [shape=record, fontname=Arial, fontsize=11, color="#4a4a4a", style=filled, fillcolor="#faf8f2"]
+ edge [fontname=Arial, fontsize=9, color="#555555", arrowsize=.65]
+ Cliente [label="{Cliente|id · UUID\lRUN y contacto · texto\l}"]
+ Cuenta [label="{Cuenta|id · UUID\lrol · texto\lverificada · booleano\l}"]
+ Pedido [label="{Pedido|id · UUID\lestado · texto\ltotal · CLP\l}"]
+ Linea [label="{DetallePedido|productoId · entero\lcantidad · entero\lprecio · CLP\l}"]
+ Producto [label="{Producto|id · entero\lprecio · CLP\lstock · entero\l}"]
+ Pago [label="{Pago|id · UUID\nmonto · CLP\lestado · texto\l}"]
+ Comprobante [label="{Comprobante|folio · texto\ltotal · CLP\l}"]
+ Cuenta -> Cliente [dir=none, taillabel="1", headlabel="0..1"]
+ Cliente -> Pedido [dir=none, taillabel="1", headlabel="0..*"]
+ Pedido -> Linea [dir=back, arrowtail=diamond, taillabel="1", headlabel="1..*"]
+ Linea -> Producto [dir=none, taillabel="0..*", headlabel="1"]
+ Pedido -> Pago [dir=none, taillabel="1", headlabel="0..1"]
+ Pedido -> Comprobante [dir=none, taillabel="1", headlabel="0..1"]
+}

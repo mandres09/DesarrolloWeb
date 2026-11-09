@@ -1,0 +1,11 @@
+.cuenta { padding-block: 2rem 3rem }
+.cuenta h1 { font-size: clamp(2.25rem, 5vw, 4rem) }
+.cuenta h2 { font-size: 1.55rem }
+.cuenta section, .cuenta details { margin-top: 2rem }
+.cuenta-formularios, .registro { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr)) }
+.cuenta form, .cuenta article { padding: 1.1rem; border: 1px solid #d4cbbc; margin-block: .8rem }
+.cuenta label { display: block; margin-bottom: .75rem }
+.cuenta input, .cuenta select { display: block; width: 100%; margin-top: .25rem; padding: .6rem; font: inherit }
+.cuenta button:not(.button) { padding: .6rem; border: 1px solid #d4cbbc; background: white; color: #232323 }
+#estado { min-height: 1.5rem; font-weight: bold }
+#pedidos p { overflow-wrap: anywhere }

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mi cuenta · Nikkei Roll</title>
+<link rel="stylesheet" href="css/estilos.css">
+<link rel="stylesheet" href="css/cuenta.css">
+</head>
+<body>
+<nav class="container nav-inner" aria-label="Navegación"><a href="/">Nikkei Roll</a><a href="/#carta">Carta</a></nav>
+<main class="container cuenta">
+<p class="eyebrow">EVALUACIÓN 2 · DEMOSTRACIÓN LOCAL</p>
+<h1>Mi cuenta</h1>
+<p>Usa datos ficticios. El operador local puede recuperar el código de verificación y aprobar el pago de prueba.</p>
+<p id="estado" role="status" aria-live="polite"></p>
+<div class="cuenta-formularios">
+<form id="login">
+<h2>Iniciar sesión</h2>
+<label>Correo<input name="correo" type="email" required autocomplete="username"></label>
+<label>Contraseña<input name="clave" type="password" minlength="10" required autocomplete="current-password"></label>
+<button class="button">Entrar</button>
+</form>
+<form id="verificar">
+<h2>Verificar correo</h2>
+<label>Código del buzón de prueba<input name="token" required autocomplete="one-time-code"></label>
+<button class="button">Verificar</button>
+<button type="button" data-action="reenviar">Reenviar código</button>
+</form>
+</div>
+<details>
+<summary>Crear cuenta de cliente</summary>
+<form id="registro" class="registro">
+<label>Nombre<input name="nombre" required></label>
+<label>RUN<input name="run" required placeholder="11111111-1"></label>
+<label>Correo ficticio<input name="correo" type="email" required></label>
+<label>Contraseña<input name="clave" type="password" minlength="10" required autocomplete="new-password"></label>
+<label>Dirección<input name="direccion" required placeholder="Dirección de prueba 123, Santiago"></label>
+<label>Comuna<input name="comuna" required></label>
+<label>Provincia<input name="provincia" required></label>
+<label>Región<input name="region" required></label>
+<label>Nacimiento<input name="nacimiento" type="date" required></label>
+<label>Sexo<select name="sexo"><option>No informar</option><option>F</option><option>M</option><option>Otro</option></select></label>
+<label>Teléfono<input name="telefono" type="tel" required></label>
+<button class="button">Registrarme</button>
+</form>
+</details>
+<section aria-labelledby="pedidos-titulo">
+<h2 id="pedidos-titulo">Mis pedidos</h2>
+<button class="button" type="button" data-action="pedidos">Actualizar pedidos</button>
+<button type="button" data-action="salir">Cerrar sesión</button>
+<div id="pedidos"></div>
+</section>
+</main>
+<script src="js/servicios.js"></script>
+<script src="js/cuenta.js"></script>
+</body>
+</html>
