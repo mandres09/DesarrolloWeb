@@ -1,0 +1,164 @@
+[
+  {
+    "id": 1,
+    "nombre": "Roll acevichado",
+    "descripcion": "Camarón, palta y salsa acevichada. 10 piezas.",
+    "categoria": "Rolls",
+    "precio": 7990,
+    "imagen": "imagenes/roll-acevichado.jpg",
+    "promocion": false
+  },
+  {
+    "id": 2,
+    "nombre": "Roll salmón",
+    "descripcion": "Salmón, queso crema y palta. 10 piezas.",
+    "categoria": "Rolls",
+    "precio": 8490,
+    "imagen": "imagenes/roll-salmon.jpg",
+    "promocion": false
+  },
+  {
+    "id": 3,
+    "nombre": "Roll veggie",
+    "descripcion": "Palta, pepino y queso crema. 10 piezas.",
+    "categoria": "Rolls",
+    "precio": 6490,
+    "imagen": "imagenes/roll-veggie.jpg",
+    "promocion": false
+  },
+  {
+    "id": 4,
+    "nombre": "Tabla Nikkei",
+    "descripcion": "Una selección para compartir. 30 piezas.",
+    "categoria": "Tablas y combos",
+    "precio": 19990,
+    "imagen": "imagenes/tabla.jpg",
+    "promocion": false
+  },
+  {
+    "id": 5,
+    "nombre": "Combo para dos",
+    "descripcion": "Dos rolls a elección del chef. 20 piezas.",
+    "categoria": "Tablas y combos",
+    "precio": 13990,
+    "imagen": "imagenes/combo-dos.jpg",
+    "promocion": true
+  },
+  {
+    "id": 6,
+    "nombre": "Tabla familiar",
+    "descripcion": "Una mezcla de nuestros favoritos. 50 piezas.",
+    "categoria": "Tablas y combos",
+    "precio": 29990,
+    "imagen": "imagenes/tabla-familiar.jpg",
+    "promocion": false
+  },
+  {
+    "id": 7,
+    "nombre": "Gyozas de pollo",
+    "descripcion": "Cinco empanaditas rellenas de pollo.",
+    "categoria": "Entradas",
+    "precio": 4990,
+    "imagen": "imagenes/gyozas.jpg",
+    "promocion": false
+  },
+  {
+    "id": 8,
+    "nombre": "Edamame",
+    "descripcion": "Porotos de soya al vapor con sal.",
+    "categoria": "Entradas",
+    "precio": 3990,
+    "imagen": "imagenes/edamame.jpg",
+    "promocion": false
+  },
+  {
+    "id": 9,
+    "nombre": "Limonada",
+    "descripcion": "Limonada de limón. Porción de 500 ml.",
+    "categoria": "Bebidas",
+    "precio": 2490,
+    "imagen": "imagenes/limonada.jpg",
+    "promocion": false
+  },
+  {
+    "id": 10,
+    "nombre": "Té frío",
+    "descripcion": "Té frío con limón. Porción de 500 ml.",
+    "categoria": "Bebidas",
+    "precio": 2490,
+    "imagen": "imagenes/te-frio.jpg",
+    "promocion": false
+  },
+  {
+    "id": 11,
+    "nombre": "Suspiro limeño",
+    "descripcion": "Crema de leche con merengue. Porción individual.",
+    "categoria": "Postres",
+    "precio": 3900,
+    "imagen": "imagenes/suspiro-limeno.jpg",
+    "promocion": false
+  },
+  {
+    "id": 12,
+    "nombre": "Picarones",
+    "descripcion": "Cuatro aros de masa de zapallo y camote con miel.",
+    "categoria": "Postres",
+    "precio": 4500,
+    "imagen": "imagenes/picarones.jpg",
+    "promocion": false
+  },
+  {
+    "id": 13,
+    "nombre": "Mochis",
+    "descripcion": "Tres mochis dulces de distintos sabores.",
+    "categoria": "Postres",
+    "precio": 4200,
+    "imagen": "imagenes/mochis.jpg",
+    "promocion": false
+  },
+  {
+    "id": 14,
+    "nombre": "Dorayaki",
+    "descripcion": "Dos panqueques japoneses con relleno dulce de porotos rojos. Una unidad.",
+    "categoria": "Postres",
+    "precio": 3900,
+    "imagen": "imagenes/dorayaki.jpg",
+    "promocion": false
+  },
+  {
+    "id": 15,
+    "nombre": "Cheesecake japonés",
+    "descripcion": "Porción de cheesecake japonés suave y esponjoso.",
+    "categoria": "Postres",
+    "precio": 4900,
+    "imagen": "imagenes/cheesecake-japones.jpg",
+    "promocion": false
+  },
+  {
+    "id": 16,
+    "nombre": "Chicha morada",
+    "descripcion": "Bebida de maíz morado con canela y limón, sin alcohol. Porción de 500 ml.",
+    "categoria": "Bebidas",
+    "precio": 2990,
+    "imagen": "imagenes/chicha-morada.jpg",
+    "promocion": false
+  },
+  {
+    "id": 17,
+    "nombre": "Jugo de maracuyá",
+    "descripcion": "Jugo de maracuyá servido frío. Porción de 500 ml.",
+    "categoria": "Bebidas",
+    "precio": 2990,
+    "imagen": "imagenes/maracuya.jpg",
+    "promocion": false
+  },
+  {
+    "id": 18,
+    "nombre": "Inca Kola",
+    "descripcion": "Bebida gaseosa peruana. Botella individual de 300 ml.",
+    "categoria": "Bebidas",
+    "precio": 2490,
+    "imagen": "imagenes/inca-kola.jpg",
+    "promocion": false
+  }
+]
